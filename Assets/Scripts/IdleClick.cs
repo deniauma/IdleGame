@@ -34,6 +34,20 @@ public class IdleClick : MonoBehaviour {
         }
 	}
 
+    private string getIdleButtonText()
+    {
+        int nbLvls = gameManager.getBuyNumber();
+        if(nbLvls > 0)
+        {
+            double cost = costForNextLevels(gameManager.getBuyNumber());
+            return "Lvl " + level + " | Next " + nbLvls + " level(s): " + costForNextLevels(nbLvls) + "G";
+        }
+        else
+        {
+
+        }
+    }
+
     public void clicked()
     {
         double gpsIncrease = gps;
@@ -43,6 +57,7 @@ public class IdleClick : MonoBehaviour {
         gpsIncrease = gps - gpsIncrease;
         gameManager.goldPerSec += gpsIncrease;
     }
+
     public double costForNextLevel()
     {
         if (level == 0)
@@ -51,5 +66,33 @@ public class IdleClick : MonoBehaviour {
             return System.Math.Floor(buyCost * Mathf.Pow(costNextLevel, level+1));
     }
 
-    
+    private double costForLevel(int lvl)
+    {
+        if (lvl == 0)
+            return buyCost;
+        else
+            return System.Math.Floor(buyCost * Mathf.Pow(costNextLevel, lvl));
+    }
+
+    public double costForNextLevels(int nb)
+    {
+        double total = 0;
+        if (level == 0)
+            total = buyCost;
+        for (int i = level + 1; i <= level + nb; i++)
+        {
+            total += costForLevel(i);
+        }
+        return total;
+    }
+
+    public double costForMaxLevel()
+    {
+        double total = 0;
+        if (level == 0)
+            total = buyCost;
+        
+        return total;
+    }
+
 }

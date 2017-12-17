@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public Text goldPerSecText;
     public Text goldPerClickText;
     public double seconds = 0;
+    public int buyOption = 0;
 
     // Use this for initialization
     void Start () {
@@ -44,6 +45,26 @@ public class GameManager : MonoBehaviour {
         {
             timeAdd();
             yield return new WaitForSeconds(1);
+        }
+    }
+
+    public int getBuyNumber()
+    {
+        if (buyOption == 0)
+        {
+            return 1;
+        }
+        else if (buyOption == 1)
+        {
+            return 10;
+        }
+        else if (buyOption == 2)
+        {
+            return 100;
+        }
+        else
+        {
+            return 0;
         }
     }
 }
